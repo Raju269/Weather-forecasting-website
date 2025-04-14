@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Powered Weather App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(145deg, #001f3f, #0074D9);
+      color: white;
+      padding: 20px;
+      perspective: 1000px;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00d9ff;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease-in-out;
+    }
+    .card:hover {
+      transform: rotateY(10deg) scale(1.02);
+    }
+    .title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+    .result {
+      font-size: 16px;
+      padding: 10px 0;
+    }
+    .input-group {
+      margin: 10px 0;
+    }
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #00d9ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(125, 221, 238, 0.6);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ AI Weather Assistant ✨</h1>
+  <div class="container">
+
+    <!-- 1. Clothing Suggestion AI -->
+    <div class="card">
+      <div class="title">Clothing Recommendation</div>
+      <div class="input-group">
+        <input type="number" id="tempInput" placeholder="Enter Temperature (°C)" />
+      </div>
+      <button onclick="getClothingSuggestion()">Suggest</button>
+      <div class="result" id="clothingResult"></div>
+    </div>
+
+    <!-- 2. Health Tips Based on Weather -->
+    <div class="card">
+      <div class="title">Health/Mood Suggestion</div>
+      <div class="input-group">
+        <input type="number" id="uvIndex" placeholder="Enter UV Index" />
+      </div>
+      <button onclick="healthTips()">Check Tips</button>
+      <div class="result" id="healthResult"></div>
+    </div>
+
+    <!-- 3. Disaster Alert Prediction -->
+    <div class="card">
+      <div class="title">Disaster Alert</div>
+      <div class="input-group">
+        <input type="number" id="wind" placeholder="Wind Speed (m/s)" />
+        <input type="number" id="pressure" placeholder="Pressure (hPa)" />
+      </div>
+      <button onclick="predictDisaster()">Check Alert</button>
+      <div class="result" id="disasterResult"></div>
+    </div>
+
+    <!-- 4. Weather Voice Assistant -->
+    <div class="card">
+      <div class="title">Weather Voice Assistant</div>
+      <button onclick="speakWeather()">Speak Weather</button>
+      <div class="result">Click to hear weather summary</div>
+    </div>
+
+    <!-- 5. Skin Care Alert -->
+    <div class="card">
+      <div class="title">Skin Care Alert</div>
+      <div class="input-group">
+        <input type="number" id="humidity" placeholder="Humidity (%)" />
+      </div>
+      <button onclick="skinCareAdvice()">Get Tip</button>
+      <div class="result" id="skinResult"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function getClothingSuggestion() {
+      const temp = parseFloat(document.getElementById('tempInput').value);
+      let advice = "";
+      if (temp > 35) advice = "Wear light cotton clothes and drink lots of water.";
+      else if (temp > 25) advice = "A t-shirt and cap is perfect for today.";
+      else if (temp > 15) advice = "Mild weather! Carry a light jacket.";
+      else advice = "It's cold! Wear woolens, gloves, and a cap.";
+      document.getElementById('clothingResult').innerText = advice;
+    }
+
+    function healthTips() {
+      const uv = parseFloat(document.getElementById('uvIndex').value);
+      let tip = "";
+      if (uv >= 8) tip = "Dangerous UV! Wear sunscreen and avoid peak hours.";
+      else if (uv >= 5) tip = "Moderate UV. Use SPF and stay hydrated.";
+      else tip = "Low UV risk. Enjoy your day outside!";
+      document.getElementById('healthResult').innerText = tip;
+    }
+
+    function predictDisaster() {
+      const wind = parseFloat(document.getElementById('wind').value);
+      const pressure = parseFloat(document.getElementById('pressure').value);
+      let alert = "Normal weather conditions.";
+      if (wind > 15 || pressure < 980) alert = "Warning! Possible storm or cyclone risk.";
+      document.getElementById('disasterResult').innerText = alert;
+    }
+
+    function speakWeather() {
+      const summary = "Today is sunny with light wind and 30 degrees Celsius temperature.";
+      const synth = window.speechSynthesis;
+      const utter = new SpeechSynthesisUtterance(summary);
+      synth.speak(utter);
+    }
+
+    function skinCareAdvice() {
+      const humidity = parseFloat(document.getElementById('humidity').value);
+      let advice = "";
+      if (humidity > 70) advice = "High humidity! Use light, non-sticky sunscreen.";
+      else if (humidity < 30) advice = "Dry air! Apply moisturizer and drink water.";
+      else advice = "Good skin weather. Keep hydrated!";
+      document.getElementById('skinResult').innerText = advice;
+    }
+  </script>
+</body>
+</html>

@@ -1,66 +1,43 @@
-const API_KEY = '62a15361828740c790f131241251404';
-const cityInput = document.getElementById('cityInput');
-const searchBtn = document.getElementById('searchBtn');
-const locateBtn = document.getElementById('locateBtn');
+// Simulated weather data (use real API in production)
+const temp = 30; // in °C
+const uvIndex = 8; // 0 to 11+
+const humidity = 70;
+const windSpeed = 45; // km/h
+const pressure = 990;
 
-searchBtn.addEventListener('click', () => {
-  const city = cityInput.value.trim();
-  if (city) fetchWeather(city);
-});
-
-locateBtn.addEventListener('click', () => {
-  navigator.geolocation.getCurrentPosition(pos => {
-    const { latitude, longitude } = pos.coords;
-    fetchWeather(`${latitude},${longitude}`);
-  });
-});
-
-function fetchWeather(query) {
-  const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=8&aqi=yes&alerts=no`;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      updateCurrentWeather(data);
-      updateForecast(data.forecast.forecastday);
-    })
-    .catch(() => alert("Something went wrong or city not found!"));
+// AI Clothing Suggestion
+if (temp > 30) {
+  document.getElementById("clothing").innerText = "Wear light cotton clothes 👕";
+} else if (temp > 20) {
+  document.getElementById("clothing").innerText = "T-shirt & jeans are fine 👖";
+} else {
+  document.getElementById("clothing").innerText = "Wear warm clothes 🧥";
 }
 
-function updateCurrentWeather(data) {
-  document.querySelector('.temp').innerText = `${data.current.temp_c} °C`;
-  document.querySelector('.condition').innerText = data.current.condition.text;
-  document.querySelector('.location').innerText = `${data.location.name}, ${data.location.country}`;
-  document.querySelector('.date').innerText = new Date(data.location.localtime).toDateString();
-
-  document.getElementById('aqi').innerText = data.current.air_quality.pm2_5.toFixed(1);
-  document.getElementById('humidity').innerText = `${data.current.humidity}%`;
-  document.getElementById('pressure').innerText = `${data.current.pressure_mb} hPa`;
-  document.getElementById('wind').innerText = `${data.current.wind_kph} m/s`;
-  document.getElementById('feelsLike').innerText = `${data.current.feelslike_c} °C`;
-  document.getElementById('visibility').innerText = `${data.current.vis_km} km`;
+// Health Tip AI
+if (uvIndex > 7) {
+  document.getElementById("health").innerText = "Use sunscreen, high UV detected 🌞";
+} else {
+  document.getElementById("health").innerText = "Safe UV level 👍";
 }
 
-function updateForecast(forecastDays) {
-  const forecastList = document.getElementById('forecastList');
-  forecastList.innerHTML = '';
+// Disaster Alert AI
+if (windSpeed > 60 || pressure < 980) {
+  document.getElementById("disaster").innerText = "⚠️ Potential storm or cyclone risk!";
+} else {
+  document.getElementById("disaster").innerText = "No natural disaster risk ✅";
+}
 
-  forecastDays.forEach(day => {
-    const date = new Date(day.date).toDateString();
-    const icon = day.day.condition.icon;
-    const maxTemp = day.day.maxtemp_c;
-    const minTemp = day.day.mintemp_c;
-    const condition = day.day.condition.text;
+// Skin Care Suggestion
+if (humidity > 80) {
+  document.getElementById("skin").innerText = "Use anti-humidity facewash 💧";
+} else {
+  document.getElementById("skin").innerText = "Moisturizer recommended 🧴";
+}
 
-    const item = document.createElement('div');
-    item.classList.add('forecast-item');
-    item.innerHTML = `
-      <p>${date}</p>
-      <img src="https:${icon}" alt="${condition}" />
-      <p>${condition}</p>
-      <p>Max: ${maxTemp}°C</p>
-      <p>Min: ${minTemp}°C</p>
-    `;
-    forecastList.appendChild(item);
-  });
+// Voice Assistant
+function speakWeather() {
+  const text = `Today is ${temp} degrees. UV index is ${uvIndex}. Wind speed is ${windSpeed} kilometers per hour.`;
+  const utterance = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(utterance);
 }

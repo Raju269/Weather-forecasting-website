@@ -2,63 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weather App</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script defer src="script.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather AI Tools</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h2>Weather</h2>
-      <div class="search-box">
-        <input type="text" id="cityInput" placeholder="Enter city name" />
-        <button id="searchBtn"><i class="fas fa-search"></i></button>
-        <button id="locateBtn"><i class="fas fa-location-dot"></i> Current Location</button>
-      </div>
-    </header>
-
-    <main>
-      <div class="left-panel">
-        <div class="now-card">
-          <p class="temp">-- °C</p>
-          <p class="condition">--</p>
-          <p class="date">--</p>
-          <p class="location">--</p>
-        </div>
-
-        <div class="forecast-card">
-          <h3>8 Days Forecast</h3>
-          <div class="forecast-list" id="forecastList"></div>
-        </div>
-      </div>
-
-      <div class="right-panel">
-        <section class="highlights">
-          <h3>Today's Highlights</h3>
-          <div class="highlight-grid">
-            <div class="highlight-box">Air Quality: <span id="aqi">--</span></div>
-            <div class="highlight-box">Humidity: <span id="humidity">--%</span></div>
-            <div class="highlight-box">Pressure: <span id="pressure">-- hPa</span></div>
-            <div class="highlight-box">Wind Speed: <span id="wind">-- m/s</span></div>
-            <div class="highlight-box">Feels Like: <span id="feelsLike">-- °C</span></div>
-            <div class="highlight-box">Visibility: <span id="visibility">-- km</span></div>
-          </div>
-        </section>
-      </div>
-    </main>
+  <div class="glass-card">
+    <h2>🌤️ Weather AI Assistant</h2>
+    <p><strong><a href="index1.html" target="_blank">Health Tip:</a></strong> <span id="health">Analyzing...</span></p>
+    <p><strong><a href="work.html" target="_blank">Health :</a></strong> <span id="health">Analyzing...</span></p>
+    <p><strong><a href="index1.html" target="_blank">Clothing Suggestion:</a></strong> <span id="clothing">Analyzing...</span></p>
+    <p><strong><a href="index1.html" target="_blank">Disaster Alert:</a></strong> <span id="disaster">Monitoring...</span></p>
+    <p><strong><a href="index.html" target="_blank">Voice Assistant:</a></strong> <a href="#" onclick="speakWeather()">🔊 Speak Now</a></p>
+    <p><strong><a href="index1.html" target="_blank">Skin Care Tip:</a></strong> <span id="skin">Loading...</span></p>
+    <p style="margin-top: 15px;"><a href="https://openweathermap.org/" target="_blank">🌐 View Weather API</a></p>
   </div>
-  <div class="ai-box">
-    <h2>AI Weather & Earth Prediction</h2>
-    <a href="./project2/index1.html" target="_blank">AI Features & Tools </a>
-    <a href="./project2/index.html" target="_blank"> AI Outfit Suggestions</a>
-    <a href="./project2/earth.html" target="_blank">Earth Disaster Prediction</a>
-  </div>
-  
-  
-  <script src="script.js">
-   
-  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
