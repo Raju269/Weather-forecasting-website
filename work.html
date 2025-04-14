@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Sky Simulation & AI Health Advisory</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(#001d3d, #003566);
+      overflow: hidden;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      top: 60px;
+    }
+
+    .advisory-box {
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      width: 80%;
+      max-width: 600px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .advisory-box h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="sky"></canvas>
+
+  <div class="content">
+    <div class="advisory-box">
+      <h2>🌬️ AI-Based Health Advisory</h2>
+      <p id="healthText">Loading health info...</p>
+    </div>
+  </div>
+
+  <script>
+    // 3D Sky Simulation with Animated Clouds
+    const canvas = document.getElementById('sky');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Cloud {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height / 2;
+        this.radius = 40 + Math.random() * 30;
+        this.speed = 0.3 + Math.random();
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.fill();
+      }
+
+      update() {
+        this.x += this.speed;
+        if (this.x - this.radius > canvas.width) {
+          this.x = -this.radius;
+        }
+        this.draw();
+      }
+    }
+
+    const clouds = Array.from({ length: 20 }, () => new Cloud());
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      clouds.forEach(cloud => cloud.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // AI-Based Health Advisory (simulated logic)
+    function generateHealthAdvisory(temp, humidity, airQualityIndex) {
+      if (airQualityIndex > 150) return "⚠️ Air quality is poor. Avoid outdoor activities and wear a mask.";
+      if (humidity > 80 && temp > 30) return "🥵 It's hot and humid. Stay hydrated and avoid sun exposure.";
+      if (temp < 10) return "🧥 It's quite cold. Wear warm clothes and stay safe from the flu.";
+      return "✅ Weather is pleasant. Great day for outdoor activities!";
+    }
+
+    // Sample values (replace with API values)
+    const temperature = 33;
+    const humidity = 85;
+    const aqi = 170;
+
+    const healthAdvice = generateHealthAdvisory(temperature, humidity, aqi);
+    document.getElementById("healthText").innerText = healthAdvice;
+  </script>
+</body>
+</html>

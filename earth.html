@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earth Disaster Prediction</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #1e3c72, #2a5298);
+      overflow-x: hidden;
+    }
+
+    .disaster-card {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 380px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      color: #fff;
+      transform: rotateX(10deg) rotateY(-10deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: riseIn 1.2s ease forwards;
+      z-index: 999;
+      text-align: center;
+    }
+
+    .disaster-card:hover {
+      transform: rotateX(0deg) rotateY(0deg);
+      box-shadow: 0 25px 50px rgba(0, 255, 255, 0.4);
+    }
+
+    .disaster-card h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #00ffe0;
+    }
+
+    .disaster-card p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .disaster-card button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00e6e6;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 230, 230, 0.3);
+    }
+
+    .disaster-card button:hover {
+      background: #00cccc;
+      transform: translateY(-2px);
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(80px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: rotateX(10deg) rotateY(-10deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="disaster-card" id="disasterCard">
+    <h2>🌍 Earth Disaster Prediction</h2>
+    <p id="disasterType">Detecting...</p>
+    <p id="disasterLocation">Location: --</p>
+    <p id="disasterRisk">Risk Level: --</p>
+    <button onclick="fetchDisasterData()">Predict Now</button>
+  </div>
+
+  <script>
+    function fetchDisasterData() {
+      // Simulated disaster API data (replace with real API if needed)
+      const types = ["Earthquake", "Tsunami", "Volcanic Eruption", "Landslide", "Hurricane", "Flood", "Wildfire"];
+      const locations = ["Japan", "California", "Indonesia", "Chile", "Philippines", "Alaska", "India"];
+      const risks = ["Low", "Moderate", "High", "Severe", "Extreme"];
+
+      const randomType = types[Math.floor(Math.random() * types.length)];
+      const randomLoc = locations[Math.floor(Math.random() * locations.length)];
+      const randomRisk = risks[Math.floor(Math.random() * risks.length)];
+
+      document.getElementById("disasterType").textContent = "🌋 " + randomType;
+      document.getElementById("disasterLocation").textContent = "Location: " + randomLoc;
+      document.getElementById("disasterRisk").textContent = "Risk Level: " + randomRisk;
+
+      // EXAMPLE for future: fetch from a real API
+      /*
+      fetch("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=1")
+        .then(res => res.json())
+        .then(data => {
+          const quake = data.features[0];
+          document.getElementById("disasterType").textContent = "🌍 Earthquake";
+          document.getElementById("disasterLocation").textContent = "Location: " + quake.properties.place;
+          document.getElementById("disasterRisk").textContent = "Magnitude: " + quake.properties.mag;
+        });
+      */
+    }
+  </script>
+
+</body>
+</html>
